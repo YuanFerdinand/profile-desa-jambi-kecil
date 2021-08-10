@@ -58,6 +58,8 @@ flutter:
     - assets/visimisi.jpg
     - assets/struktur.png
     - assets/wilayahpeta.PNG
+    - assets/latar.jpg
+    - assets/latar.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
