@@ -60,6 +60,10 @@ flutter:
     - assets/wilayahpeta.PNG
     - assets/latar.jpg
     - assets/latar.jpeg
+    - assets/gradient1.jpg
+    - assets/gradient2.jpg
+    - assets/gradient3.jpg
+    - assets/gradient4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

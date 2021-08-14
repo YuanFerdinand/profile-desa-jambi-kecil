@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/produk/data_perkembangan_card.dart';
+import 'package:profile_desa_jambi_kecil/views/kepalakeluarga.dart';
+import 'package:profile_desa_jambi_kecil/views/perekonomian.dart';
+import 'package:profile_desa_jambi_kecil/views/perkembanganpenduduk.dart';
 
 class DataPenduduk extends StatefulWidget {
   const DataPenduduk({Key? key}) : super(key: key);
@@ -14,46 +17,194 @@ class _DataPendudukState extends State<DataPenduduk> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffFF0000),
+        backgroundColor: Color(0xff008000),
         title: Text(
           "Data Penduduk",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.9,
-          width: MediaQuery.of(context).size.width * 0.95,
-          child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("dataPenduduk")
-                  .doc("dataPerkembangan")
-                  .collection("dataPerkembangan")
-                  .orderBy('tahun', descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: (snapshot.data! as QuerySnapshot).docs.length,
-                      itemBuilder: (context, index) {
-                        DocumentSnapshot documentSnapshot =
-                            (snapshot.data! as QuerySnapshot).docs[index];
-                        return DataPerkembanganCard(
-                          documentSnapshot["tahun"],
-                          documentSnapshot["laki"],
-                          documentSnapshot["perempuan"],
-                          documentSnapshot["total"],
-                        );
-                      });
-                } else {
-                  return Center(
-                      child: Text(
-                    'Belum ada data',
-                    style: TextStyle(fontFamily: "RedHatDisplay", fontSize: 15),
-                  ));
-                }
-              }),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return PerkembanganPenduduk();
+                }));
+              },
+              child: Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                height: MediaQuery.of(context).size.height * 0.20,
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 25,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: AssetImage("assets/gradient1.jpg"),
+                                fit: BoxFit.fitWidth)),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 15),
+                            child: Center(
+                              child: Text(
+                                "DATA PERKEMBANGAN",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DataKepalaKeluarga();
+                }));
+              },
+              child: Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                height: MediaQuery.of(context).size.height * 0.20,
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 25,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: AssetImage("assets/gradient2.jpg"),
+                                fit: BoxFit.fitWidth)),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 15),
+                            child: Center(
+                              child: Text(
+                                "DATA KEPALA KELUARGA",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DataPerekonomian();
+                }));
+              },
+              child: Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                height: MediaQuery.of(context).size.height * 0.20,
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 25,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: AssetImage("assets/gradient3.jpg"),
+                                fit: BoxFit.fitWidth)),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 15),
+                            child: Center(
+                              child: Text(
+                                "DATA PEREKONOMIAN",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.20,
+              width: MediaQuery.of(context).size.width * 0.95,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 25,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/gradient4.jpg"),
+                              fit: BoxFit.fitWidth)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 15),
+                          child: Center(
+                            child: Text(
+                              "DATA KELUARGA BENCANA",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

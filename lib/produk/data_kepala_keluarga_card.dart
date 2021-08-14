@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DataPerkembanganCard extends StatefulWidget {
+class DataKepalaKeluargaCard extends StatefulWidget {
   final int tahun;
   final int laki;
   final int perempuan;
   final int total;
 
-  DataPerkembanganCard(
+  DataKepalaKeluargaCard(
     this.tahun,
     this.laki,
     this.perempuan,
@@ -14,15 +14,16 @@ class DataPerkembanganCard extends StatefulWidget {
   );
 
   @override
-  _DataPerkembanganCardState createState() => _DataPerkembanganCardState();
+  _DataKepalaKeluargaCardState createState() => _DataKepalaKeluargaCardState();
 }
 
-class _DataPerkembanganCardState extends State<DataPerkembanganCard> {
+class _DataKepalaKeluargaCardState extends State<DataKepalaKeluargaCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 15),
       child: Card(
-        elevation: 15,
+        elevation: 10,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           height: MediaQuery.of(context).size.height * 0.3,
@@ -52,9 +53,11 @@ class _DataPerkembanganCardState extends State<DataPerkembanganCard> {
                       Container(
                         margin: EdgeInsets.only(top: 10),
                         child: Text(
-                          "Jumlah Laki - Laki :   " + widget.laki.toString(),
+                          "Kepala Keluarga (L) : " + widget.laki.toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
                         ),
                       )
                     ],
@@ -67,9 +70,12 @@ class _DataPerkembanganCardState extends State<DataPerkembanganCard> {
                       Container(
                         margin: EdgeInsets.only(top: 10),
                         child: Text(
-                          "Jumlah Perempuan : " + widget.perempuan.toString(),
+                          "Kepala Keluarga (P) : " +
+                              widget.perempuan.toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
                         ),
                       )
                     ],
@@ -82,11 +88,13 @@ class _DataPerkembanganCardState extends State<DataPerkembanganCard> {
                       Container(
                         margin: EdgeInsets.only(top: 10),
                         child: Text(
-                          "Total perkembangan penduduk tahun " +
+                          "Total Kepala Keluarga tahun " +
                               widget.tahun.toString() +
                               " : ",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
                         ),
                       )
                     ],
@@ -99,7 +107,7 @@ class _DataPerkembanganCardState extends State<DataPerkembanganCard> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
-                        color: Colors.red),
+                        color: Colors.green),
                   ),
                 ),
               ],

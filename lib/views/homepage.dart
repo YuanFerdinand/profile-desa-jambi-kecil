@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
           "Profile Desa",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
-        backgroundColor: Color(0xffFF0000),
+        backgroundColor: Color(0xff008000),
       ),
       body: Center(
         child: Column(
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(20),
                                   bottomRight: Radius.circular(20)),
-                              color: Color(0xffFF0000)),
+                              color: Color(0xff008000)),
                           child: Center(
                             child: Text(
                               "Sakit Samo Diubat, Pening Samo Diureh",
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(20),
                                         bottomRight: Radius.circular(20)),
-                                    color: Color(0xffFF0000)),
+                                    color: Color(0xff008000)),
                                 child: Center(
                                   child: Text(
                                     "Wilayah Desa",
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       bottomRight: Radius.circular(20)),
-                                  color: Color(0xffFF0000)),
+                                  color: Color(0xff008000)),
                               child: Center(
                                 child: Text(
                                   "Visi Dan Misi",
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(20),
                                         bottomRight: Radius.circular(20)),
-                                    color: Color(0xffFF0000)),
+                                    color: Color(0xff008000)),
                                 child: Center(
                                   child: Text(
                                     "Sejarah",
@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       bottomRight: Radius.circular(20)),
-                                  color: Color(0xffFF0000)),
+                                  color: Color(0xff008000)),
                               child: Center(
                                 child: Text(
                                   "Struktur",
@@ -314,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       bottomRight: Radius.circular(20)),
-                                  color: Color(0xffFF0000)),
+                                  color: Color(0xff008000)),
                               child: Center(
                                 child: Text(
                                   "Fasilitas",
@@ -368,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(20),
                                         bottomRight: Radius.circular(20)),
-                                    color: Color(0xffFF0000)),
+                                    color: Color(0xff008000)),
                                 child: Center(
                                   child: Text(
                                     "Data Penduduk",

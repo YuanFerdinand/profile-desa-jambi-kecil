@@ -19,7 +19,7 @@ class _SejarahPageState extends State<SejarahPage> {
     CollectionReference sejarah = dbSejarah.collection('latarBelakang');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffFF0000),
+        backgroundColor: Color(0xff008000),
         title: Text(
           "Sejarah",
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),

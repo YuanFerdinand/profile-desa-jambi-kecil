@@ -15,7 +15,7 @@ class _WilayahPageState extends State<WilayahPage> {
     CollectionReference wilayah = dbwilayah.collection('luasWilayah');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffFF0000),
+        backgroundColor: Color(0xff008000),
         title: Text(
           "Wilayah Desa",
           style: TextStyle(fontWeight: FontWeight.bold),
