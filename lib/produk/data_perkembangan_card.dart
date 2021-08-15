@@ -22,7 +22,7 @@ class _DataPerkembanganCardState extends State<DataPerkembanganCard> {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
-        elevation: 15,
+        elevation: 10,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           height: MediaQuery.of(context).size.height * 0.3,

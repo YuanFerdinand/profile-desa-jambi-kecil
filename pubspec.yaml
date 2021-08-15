@@ -33,6 +33,7 @@ dependencies:
   firebase_auth:
   firebase_database:
   shared_preferences:
+  fl_chart: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,8 @@ flutter:
     - assets/penduduk.jpg
     - assets/fasilitas.jpg
     - assets/visimisi.jpg
+    - assets/misi.jpg
+    - assets/visi.jpg
     - assets/struktur.png
     - assets/wilayahpeta.PNG
     - assets/latar.jpg
@@ -64,6 +67,17 @@ flutter:
     - assets/gradient2.jpg
     - assets/gradient3.jpg
     - assets/gradient4.jpg
+    - assets/antena.jpg
+    - assets/bengkel.jpg
+    - assets/jahit.jpg
+    - assets/motor.jpg
+    - assets/rumah.jpg
+    - assets/tatarias.jpg
+    - assets/truk.jpg
+    - assets/tv.jpg
+    - assets/kontrakan.png
+    - assets/warung.png
+    - assets/mobil.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
