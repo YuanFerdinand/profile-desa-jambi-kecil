@@ -21,6 +21,15 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
         backgroundColor: Color(0xff008000),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Text("Masuk",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
+          )
+        ],
       ),
       body: Center(
         child: Column(
