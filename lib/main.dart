@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/model/auth.dart';
 import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(RestartWidget(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

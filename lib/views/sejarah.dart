@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/views/edit_sejarah.dart';
 
 class SejarahPage extends StatefulWidget {
   const SejarahPage({Key? key}) : super(key: key);
@@ -24,22 +25,42 @@ class _SejarahPageState extends State<SejarahPage> {
           "Sejarah",
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return EditSejarah();
+                  }));
+                },
+                child: Icon(Icons.edit)),
+          )
+        ],
       ),
       body: Center(
         child: ListView(
           children: [
             Column(
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 15),
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          image: AssetImage("assets/candi.jpg"),
-                          fit: BoxFit.fill)),
-                ),
+                StreamBuilder<DocumentSnapshot>(
+                    stream: sejarah.doc('sejarah').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return Container(
+                          margin: EdgeInsets.only(top: 15),
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: NetworkImage(snapshot.data!['gambar']),
+                                  fit: BoxFit.fill)),
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    }),
                 StreamBuilder<DocumentSnapshot>(
                     stream: sejarah.doc('sejarah').snapshots(),
                     builder: (context, snapshot) {

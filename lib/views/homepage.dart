@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
+import 'package:profile_desa_jambi_kecil/model/auth.dart';
 import 'package:profile_desa_jambi_kecil/views/datapenduduk.dart';
+import 'package:profile_desa_jambi_kecil/views/login_page.dart';
 import 'package:profile_desa_jambi_kecil/views/sejarah.dart';
 import 'package:profile_desa_jambi_kecil/views/visi_misi.dart';
 import 'package:profile_desa_jambi_kecil/views/wilayahpage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+  @override
+  void initState() {
+    getMyInfoFromSharedPreferences();
+    super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName())!;
+    myEmail = (await SharedPreferenceHelper().getUserEmail())!;
+    myUserCredential = (await SharedPreferenceHelper().getUserCredentialId())!;
+    myRole = (await SharedPreferenceHelper().getRole())!;
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +42,31 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Color(0xff008000),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-                child: Text("Masuk",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-          )
+          (myRole != "admin")
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LoginPage();
+                      }));
+                    },
+                    child: Text("Masuk",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15)),
+                  )),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    Auth().toSignOut(context);
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.logout),
+                  ))
         ],
       ),
       body: Center(

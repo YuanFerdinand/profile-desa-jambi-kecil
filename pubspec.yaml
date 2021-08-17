@@ -33,7 +33,7 @@ dependencies:
   firebase_auth:
   firebase_database:
   shared_preferences:
-  fl_chart: ^0.12.0
+  image_picker:
 
 dev_dependencies:
   flutter_test:
