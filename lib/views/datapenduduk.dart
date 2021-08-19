@@ -188,7 +188,7 @@ class _DataPendudukState extends State<DataPenduduk> {
                           margin: EdgeInsets.only(left: 15),
                           child: Center(
                             child: Text(
-                              "DATA KELUARGA BENCANA",
+                              "DATA KB",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

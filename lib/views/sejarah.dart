@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
 import 'package:profile_desa_jambi_kecil/views/edit_sejarah.dart';
 
 class SejarahPage extends StatefulWidget {
@@ -10,8 +11,24 @@ class SejarahPage extends StatefulWidget {
 }
 
 class _SejarahPageState extends State<SejarahPage> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+
   void initState() {
+    getMyInfoFromSharedPreferences();
     super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName()) ?? "USERNAME";
+    myEmail = (await SharedPreferenceHelper().getUserEmail()) ?? "USERNAME";
+    myUserCredential =
+        (await SharedPreferenceHelper().getUserCredentialId()) ?? "USERNAME";
+    myRole = (await SharedPreferenceHelper().getRole()) ?? "USERNAME";
+
+    setState(() {});
   }
 
   @override
@@ -26,16 +43,21 @@ class _SejarahPageState extends State<SejarahPage> {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return EditSejarah();
-                  }));
-                },
-                child: Icon(Icons.edit)),
-          )
+          (myUserName != "USERNAME")
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return EditSejarah();
+                        }));
+                      },
+                      child: Icon(Icons.edit)),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                )
         ],
       ),
       body: Center(
