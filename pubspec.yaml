@@ -85,6 +85,16 @@ flutter:
     - assets/kontrakan.png
     - assets/warung.png
     - assets/mobil.png
+    - assets/akseptorkb.png
+    - assets/implan.png
+    - assets/suntik.png
+    - assets/kondom.jpg
+    - assets/pil.jpg
+    - assets/backgroundkb.jpg
+    - assets/back_kesehatan.jpg
+    - assets/back_sekolah.jpg
+    - assets/posyandu.jpg
+    - assets/puskesmas.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
