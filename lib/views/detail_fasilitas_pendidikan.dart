@@ -22,7 +22,7 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
       appBar: AppBar(
         backgroundColor: Color(0xff008000),
         title: Text(
-          "pendidikan",
+          "Data Pendidikan",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -43,7 +43,7 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            image: AssetImage("assets/lurah.png"),
+                            image: AssetImage("assets/SMK.jpg"),
                             fit: BoxFit.cover)),
                   ),
                   Column(
@@ -63,6 +63,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData)
                                 return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -125,8 +127,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            image: AssetImage("assets/sekretaris.jpg"),
-                            fit: BoxFit.contain)),
+                            image: AssetImage("assets/madrasah.jpg"),
+                            fit: BoxFit.cover)),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -145,6 +147,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData)
                                 return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -207,8 +211,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            image: AssetImage("assets/kasikesos.jpg"),
-                            fit: BoxFit.contain)),
+                            image: AssetImage("assets/SD.jpg"),
+                            fit: BoxFit.cover)),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -227,6 +231,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData)
                                 return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -289,8 +295,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            image: AssetImage("assets/kasipem.png"),
-                            fit: BoxFit.contain)),
+                            image: AssetImage("assets/paud.jpg"),
+                            fit: BoxFit.cover)),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -309,6 +315,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData)
                                 return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -371,8 +379,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            image: AssetImage("assets/kasitrantib.jpg"),
-                            fit: BoxFit.contain)),
+                            image: AssetImage("assets/TK.jpg"),
+                            fit: BoxFit.cover)),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -391,6 +399,8 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData)
                                 return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(

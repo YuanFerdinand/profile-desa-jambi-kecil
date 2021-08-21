@@ -106,7 +106,7 @@ class _VisiMisiState extends State<VisiMisi> {
                           if (snapshot.hasData)
                             return Container(
                               child: Text(
-                                "!. " + snapshot.data!['nomor1'],
+                                snapshot.data!['nomor1'],
                                 style: TextStyle(
                                   color: Colors.white,
                                   // fontWeight: FontWeight.bold,
@@ -125,7 +125,7 @@ class _VisiMisiState extends State<VisiMisi> {
                           if (snapshot.hasData)
                             return Container(
                               child: Text(
-                                "2. " + snapshot.data!['nomor2'],
+                                snapshot.data!['nomor2'],
                                 style: TextStyle(
                                   color: Colors.white,
                                   // fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _VisiMisiState extends State<VisiMisi> {
                           if (snapshot.hasData)
                             return Container(
                               child: Text(
-                                "3. " + snapshot.data!['nomor3'],
+                                snapshot.data!['nomor3'],
                                 style: TextStyle(
                                   color: Colors.white,
                                   // fontWeight: FontWeight.bold,
@@ -163,7 +163,7 @@ class _VisiMisiState extends State<VisiMisi> {
                           if (snapshot.hasData)
                             return Container(
                               child: Text(
-                                "4. " + snapshot.data!['nomor4'],
+                                snapshot.data!['nomor4'],
                                 style: TextStyle(
                                   color: Colors.white,
                                   // fontWeight: FontWeight.bold,
@@ -182,7 +182,7 @@ class _VisiMisiState extends State<VisiMisi> {
                           if (snapshot.hasData)
                             return Container(
                               child: Text(
-                                "5. " + snapshot.data!['nomor5'],
+                                snapshot.data!['nomor5'],
                                 style: TextStyle(
                                   color: Colors.white,
                                   // fontWeight: FontWeight.bold,

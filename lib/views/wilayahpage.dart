@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
+import 'package:profile_desa_jambi_kecil/views/edit_wilayah.dart';
 
 class WilayahPage extends StatefulWidget {
   const WilayahPage({Key? key}) : super(key: key);
@@ -9,6 +11,25 @@ class WilayahPage extends StatefulWidget {
 }
 
 class _WilayahPageState extends State<WilayahPage> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+  void initState() {
+    getMyInfoFromSharedPreferences();
+    super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName()) ?? "USERNAME";
+    myEmail = (await SharedPreferenceHelper().getUserEmail()) ?? "USERNAME";
+    myUserCredential =
+        (await SharedPreferenceHelper().getUserCredentialId()) ?? "USERNAME";
+    myRole = (await SharedPreferenceHelper().getRole()) ?? "USERNAME";
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore dbwilayah = FirebaseFirestore.instance;
@@ -20,21 +41,46 @@ class _WilayahPageState extends State<WilayahPage> {
           "Wilayah Desa",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          (myUserName != "USERNAME")
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return EditWilayah();
+                        }));
+                      },
+                      child: Icon(Icons.edit)),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                )
+        ],
       ),
       body: Card(
         elevation: 25,
         child: ListView(
           children: [
-            Container(
-              margin: EdgeInsets.all(25),
-              height: MediaQuery.of(context).size.height * 0.3,
-              width: MediaQuery.of(context).size.width * 0.9,
-              decoration: BoxDecoration(
-                  color: Colors.grey,
-                  image: DecorationImage(
-                      fit: BoxFit.fitHeight,
-                      image: AssetImage("assets/wilayahpeta.PNG"))),
-            ),
+            StreamBuilder<DocumentSnapshot>(
+                stream: wilayah.doc('wilayah').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData)
+                    return Container(
+                      margin: EdgeInsets.only(top: 15),
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: NetworkImage(snapshot.data!['gambar']),
+                              fit: BoxFit.fill)),
+                    );
+                  else {
+                    return Text("Mohon Tunggu");
+                  }
+                }),
             StreamBuilder<DocumentSnapshot>(
                 stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
@@ -56,15 +102,13 @@ class _WilayahPageState extends State<WilayahPage> {
                   }
                 }),
             StreamBuilder<DocumentSnapshot>(
-                stream: wilayah.doc('lingkungan').snapshots(),
+                stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Container(
                       margin: EdgeInsets.all(15),
                       child: Text(
-                        "Jumlah LK : " +
-                            snapshot.data!['jml'].toString() +
-                            "LK",
+                        "Jumlah LK : " + snapshot.data!['lk'].toString() + "LK",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -76,14 +120,14 @@ class _WilayahPageState extends State<WilayahPage> {
                   }
                 }),
             StreamBuilder<DocumentSnapshot>(
-                stream: wilayah.doc('rukunTetangga').snapshots(),
+                stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Container(
                       margin: EdgeInsets.all(15),
                       child: Text(
                         "Jumlah RT : " +
-                            snapshot.data!['jml'].toString() +
+                            snapshot.data!['rt'].toString() +
                             " RT",
                         style: TextStyle(
                           color: Colors.black,
@@ -96,7 +140,7 @@ class _WilayahPageState extends State<WilayahPage> {
                   }
                 }),
             StreamBuilder<DocumentSnapshot>(
-                stream: wilayah.doc('perbatasan').snapshots(),
+                stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Container(
@@ -115,7 +159,7 @@ class _WilayahPageState extends State<WilayahPage> {
                   }
                 }),
             StreamBuilder<DocumentSnapshot>(
-                stream: wilayah.doc('perbatasan').snapshots(),
+                stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Container(
@@ -134,7 +178,7 @@ class _WilayahPageState extends State<WilayahPage> {
                   }
                 }),
             StreamBuilder<DocumentSnapshot>(
-                stream: wilayah.doc('perbatasan').snapshots(),
+                stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Container(
@@ -153,7 +197,7 @@ class _WilayahPageState extends State<WilayahPage> {
                   }
                 }),
             StreamBuilder<DocumentSnapshot>(
-                stream: wilayah.doc('perbatasan').snapshots(),
+                stream: wilayah.doc('wilayah').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Container(

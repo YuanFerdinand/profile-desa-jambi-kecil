@@ -95,6 +95,12 @@ flutter:
     - assets/back_sekolah.jpg
     - assets/posyandu.jpg
     - assets/puskesmas.jpg
+    - assets/puskesmas.jpg
+    - assets/madrasah.jpg
+    - assets/paud.jpg
+    - assets/SD.jpg
+    - assets/SMK.jpg
+    - assets/TK.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
