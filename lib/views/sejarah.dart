@@ -50,7 +50,18 @@ class _SejarahPageState extends State<SejarahPage> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return EditSejarah();
+                          return StreamBuilder<DocumentSnapshot>(
+                              stream: sejarah.doc('sejarah').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return EditSejarah(
+                                    snapshot.data!["gambar"],
+                                    snapshot.data!["desk"],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              });
                         }));
                       },
                       child: Icon(Icons.edit)),

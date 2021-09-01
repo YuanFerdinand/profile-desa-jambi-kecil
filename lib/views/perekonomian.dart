@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
+import 'package:profile_desa_jambi_kecil/views/edit_data_perekonomian.dart';
 
 class DataPerekonomian extends StatefulWidget {
   const DataPerekonomian({Key? key}) : super(key: key);
@@ -9,6 +11,26 @@ class DataPerekonomian extends StatefulWidget {
 }
 
 class _DataPerekonomianState extends State<DataPerekonomian> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+
+  void initState() {
+    getMyInfoFromSharedPreferences();
+    super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName()) ?? "USERNAME";
+    myEmail = (await SharedPreferenceHelper().getUserEmail()) ?? "USERNAME";
+    myUserCredential =
+        (await SharedPreferenceHelper().getUserCredentialId()) ?? "USERNAME";
+    myRole = (await SharedPreferenceHelper().getRole()) ?? "USERNAME";
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore dbEkonomi = FirebaseFirestore.instance;
@@ -20,6 +42,41 @@ class _DataPerekonomianState extends State<DataPerekonomian> {
             "Perekonomian",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          actions: [
+            (myUserName != "USERNAME")
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return StreamBuilder<DocumentSnapshot>(
+                            stream: ekonomi.doc('dataPerekonomian').snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData)
+                                return EditDataPerekonomian(
+                                    snapshot.data!["pemilikBengkel"],
+                                    snapshot.data!["pemilikMobil"],
+                                    snapshot.data!["pemilikMotor"],
+                                    snapshot.data!["pemilikParabola"],
+                                    snapshot.data!["pemilikRumahPermanen"],
+                                    snapshot.data!["pemilikRumahSemiPermanen"],
+                                    snapshot.data!["pemilikTV"],
+                                    snapshot.data!["pemilikTruk"],
+                                    snapshot.data!["pemilikUsahaJahit"],
+                                    snapshot.data!["pemilikUsahaTataRias"],
+                                    snapshot.data!["pemilikWarung"]);
+                              else {
+                                return Text("Mohon Tunggu");
+                              }
+                            });
+                      }));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.edit),
+                    ),
+                  )
+                : SizedBox()
+          ],
         ),
         body: Center(
           child: Container(

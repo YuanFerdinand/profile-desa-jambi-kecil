@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/produk/pendidikan_card.dart';
+import 'package:profile_desa_jambi_kecil/views/edit_fas_pend.dart';
 
 class FasilitasPendidikan extends StatefulWidget {
   const FasilitasPendidikan({Key? key}) : super(key: key);
@@ -28,423 +29,640 @@ class _FasilitasPendidikanState extends State<FasilitasPendidikan> {
       ),
       body: ListView(
         children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 30),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 15,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage("assets/SMK.jpg"),
-                            fit: BoxFit.cover)),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 1,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                            color: Color(0xff008000)),
-                        child: StreamBuilder<DocumentSnapshot>(
-                            stream: pendidikan.doc('SMK').snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData)
-                                return Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Jenjang Pendidikan : " +
-                                          snapshot.data!['nama'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah : " +
-                                          snapshot.data!['jml'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Guru : " +
-                                          snapshot.data!['guru'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Siswa : " +
-                                          snapshot.data!['siswa'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                );
-                              else {
-                                return Text("Mohon Tunggu");
-                              }
-                            }),
-                      ),
-                    ],
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: pendidikan.doc('SMA').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditFasilitasPendidikan(
+                            "SMA",
+                            snapshot.data!["nama"],
+                            snapshot.data!["jml"],
+                            snapshot.data!["guru"],
+                            snapshot.data!["siswa"]);
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 30),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.4,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 15,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/SMA.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Color(0xff008000)),
+                          child: StreamBuilder<DocumentSnapshot>(
+                              stream: pendidikan.doc('SMA').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Jenjang Pendidikan : " +
+                                            snapshot.data!['nama'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah : " +
+                                            snapshot.data!['jml'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Guru : " +
+                                            snapshot.data!['guru'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Siswa : " +
+                                            snapshot.data!['siswa'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 30),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 15,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage("assets/madrasah.jpg"),
-                            fit: BoxFit.cover)),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 1,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                            color: Color(0xff008000)),
-                        child: StreamBuilder<DocumentSnapshot>(
-                            stream: pendidikan.doc('madrasah').snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData)
-                                return Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Jenjang Pendidikan : " +
-                                          snapshot.data!['nama'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah : " +
-                                          snapshot.data!['jml'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Guru : " +
-                                          snapshot.data!['guru'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Siswa : " +
-                                          snapshot.data!['siswa'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                );
-                              else {
-                                return Text("Mohon Tunggu");
-                              }
-                            }),
-                      ),
-                    ],
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: pendidikan.doc('SMK').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditFasilitasPendidikan(
+                            "SMK",
+                            snapshot.data!["nama"],
+                            snapshot.data!["jml"],
+                            snapshot.data!["guru"],
+                            snapshot.data!["siswa"]);
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 30),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.4,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 15,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/SMK.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Color(0xff008000)),
+                          child: StreamBuilder<DocumentSnapshot>(
+                              stream: pendidikan.doc('SMK').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Jenjang Pendidikan : " +
+                                            snapshot.data!['nama'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah : " +
+                                            snapshot.data!['jml'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Guru : " +
+                                            snapshot.data!['guru'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Siswa : " +
+                                            snapshot.data!['siswa'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 30),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 15,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage("assets/SD.jpg"),
-                            fit: BoxFit.cover)),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 1,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                            color: Color(0xff008000)),
-                        child: StreamBuilder<DocumentSnapshot>(
-                            stream: pendidikan.doc('sekolahDasar').snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData)
-                                return Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Jenjang Pendidikan : " +
-                                          snapshot.data!['nama'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah : " +
-                                          snapshot.data!['jml'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Guru" +
-                                          snapshot.data!['guru'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Siswa : " +
-                                          snapshot.data!['siswa'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                );
-                              else {
-                                return Text("Mohon Tunggu");
-                              }
-                            }),
-                      ),
-                    ],
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: pendidikan.doc('madrasah').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditFasilitasPendidikan(
+                            "madrasah",
+                            snapshot.data!["nama"],
+                            snapshot.data!["jml"],
+                            snapshot.data!["guru"],
+                            snapshot.data!["siswa"]);
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 30),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 15,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/madrasah.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Color(0xff008000)),
+                          child: StreamBuilder<DocumentSnapshot>(
+                              stream: pendidikan.doc('madrasah').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Jenjang Pendidikan : " +
+                                            snapshot.data!['nama'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah : " +
+                                            snapshot.data!['jml'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Guru : " +
+                                            snapshot.data!['guru'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Siswa : " +
+                                            snapshot.data!['siswa'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 30),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 15,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage("assets/paud.jpg"),
-                            fit: BoxFit.cover)),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 1,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                            color: Color(0xff008000)),
-                        child: StreamBuilder<DocumentSnapshot>(
-                            stream: pendidikan.doc('sekolahPAUD').snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData)
-                                return Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Jenjang Pendidikan : " +
-                                          snapshot.data!['nama'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah : " +
-                                          snapshot.data!['jml'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Guru" +
-                                          snapshot.data!['guru'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Siswa : " +
-                                          snapshot.data!['siswa'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                );
-                              else {
-                                return Text("Mohon Tunggu");
-                              }
-                            }),
-                      ),
-                    ],
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: pendidikan.doc('sekolahDasar').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditFasilitasPendidikan(
+                            "sekolahDasar",
+                            snapshot.data!["nama"],
+                            snapshot.data!["jml"],
+                            snapshot.data!["guru"],
+                            snapshot.data!["siswa"]);
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 30),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 15,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/SD.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Color(0xff008000)),
+                          child: StreamBuilder<DocumentSnapshot>(
+                              stream:
+                                  pendidikan.doc('sekolahDasar').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Jenjang Pendidikan : " +
+                                            snapshot.data!['nama'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah : " +
+                                            snapshot.data!['jml'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Guru" +
+                                            snapshot.data!['guru'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Siswa : " +
+                                            snapshot.data!['siswa'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 30),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 15,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: AssetImage("assets/TK.jpg"),
-                            fit: BoxFit.cover)),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.width * 1,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                            color: Color(0xff008000)),
-                        child: StreamBuilder<DocumentSnapshot>(
-                            stream: pendidikan.doc('sekolahTK').snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData)
-                                return Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Jenjang Pendidikan : " +
-                                          snapshot.data!['nama'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah : " +
-                                          snapshot.data!['jml'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Guru" +
-                                          snapshot.data!['guru'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "Jumlah Siswa : " +
-                                          snapshot.data!['siswa'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                );
-                              else {
-                                return Text("Mohon Tunggu");
-                              }
-                            }),
-                      ),
-                    ],
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: pendidikan.doc('sekolahPAUD').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditFasilitasPendidikan(
+                            "sekolahPAUD",
+                            snapshot.data!["nama"],
+                            snapshot.data!["jml"],
+                            snapshot.data!["guru"],
+                            snapshot.data!["siswa"]);
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 30),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 15,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/paud.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Color(0xff008000)),
+                          child: StreamBuilder<DocumentSnapshot>(
+                              stream: pendidikan.doc('sekolahPAUD').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Jenjang Pendidikan : " +
+                                            snapshot.data!['nama'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah : " +
+                                            snapshot.data!['jml'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Guru" +
+                                            snapshot.data!['guru'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Siswa : " +
+                                            snapshot.data!['siswa'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: pendidikan.doc('sekolahTK').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditFasilitasPendidikan(
+                            "sekolahTK",
+                            snapshot.data!["nama"],
+                            snapshot.data!["jml"],
+                            snapshot.data!["guru"],
+                            snapshot.data!["siswa"]);
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 30),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 15,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: AssetImage("assets/TK.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Color(0xff008000)),
+                          child: StreamBuilder<DocumentSnapshot>(
+                              stream: pendidikan.doc('sekolahTK').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Jenjang Pendidikan : " +
+                                            snapshot.data!['nama'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah : " +
+                                            snapshot.data!['jml'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Guru" +
+                                            snapshot.data!['guru'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "Jumlah Siswa : " +
+                                            snapshot.data!['siswa'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              }),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

@@ -20,6 +20,9 @@ class DatabaseMethods {
   String agama = "GAMBNAR";
   String jk = "GAMBNAR";
   int no = 0;
+  int guru = 0;
+  int jml = 0;
+  int siswa = 0;
   Future tambahInfoAkun(
       var userCredential, Map<String, dynamic> userInfoMap) async {
     return FirebaseFirestore.instance
@@ -52,8 +55,8 @@ class DatabaseMethods {
 
   Future updateDataWilayah(Map<String, dynamic> updateInfo) async {
     return FirebaseFirestore.instance
-        .collection("latarBelakang")
-        .doc("sejarah")
+        .collection("luasWilayah")
+        .doc("wilayah")
         .update(updateInfo);
   }
 
@@ -76,6 +79,151 @@ class DatabaseMethods {
         .collection("struktur")
         .doc(doc)
         .update(updateInfo);
+  }
+
+  Future updateDataFasilitas(
+      String doc, Map<String, dynamic> updateDataFasilitas) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("pendidikan")
+        .collection("fasilitas")
+        .doc(doc)
+        .update(updateDataFasilitas);
+  }
+
+  Future updateDataPerekonomian(
+      Map<String, dynamic> updateDataFasilitas) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataPerekonomian")
+        .update(updateDataFasilitas);
+  }
+
+  Future addPerkembanganPenduduk(
+      int tahun, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataPerkembangan")
+        .collection("dataPerkembangan")
+        .doc(tahun.toString())
+        .set(addData);
+  }
+
+  Future editPerkembanganPenduduk(
+      String tahun, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataPerkembangan")
+        .collection("dataPerkembangan")
+        .doc(tahun)
+        .update(addData);
+  }
+
+  Future editdataKB(String tahun, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataKB")
+        .collection("dataKB")
+        .doc(tahun)
+        .update(addData);
+  }
+
+  Future deletePerkembanganPenduduk(String tahun) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataPerkembangan")
+        .collection("dataPerkembangan")
+        .doc(tahun)
+        .delete();
+  }
+
+  Future addDataKepalaKeluarga(int tahun, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataKepalaKeluarga")
+        .collection("dataKepalaKeluarga")
+        .doc(tahun.toString())
+        .set(addData);
+  }
+
+  Future editDataKepalaKeluarga(
+      String tahun, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataKepalaKeluarga")
+        .collection("dataKepalaKeluarga")
+        .doc(tahun)
+        .update(addData);
+  }
+
+  Future deleteDataKepalaKeluarga(String tahun) async {
+    return FirebaseFirestore.instance
+        .collection("dataPenduduk")
+        .doc("dataKepalaKeluarga")
+        .collection("dataKepalaKeluarga")
+        .doc(tahun)
+        .delete();
+  }
+
+  Future addPuskesmas(String nama, Map<String, dynamic> addPuskesmas) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("kesehatan")
+        .collection("puskesmas")
+        .doc(nama)
+        .set(addPuskesmas);
+  }
+
+  Future addPosyandu(String nama, Map<String, dynamic> addPosyandu) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("kesehatan")
+        .collection("posyandu")
+        .doc("posyandu")
+        .collection("listPosyandu")
+        .doc(nama)
+        .set(addPosyandu);
+  }
+
+  Future updatePosyandu(String nama, Map<String, dynamic> addPosyandu) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("kesehatan")
+        .collection("posyandu")
+        .doc("posyandu")
+        .collection("listPosyandu")
+        .doc(nama)
+        .update(addPosyandu);
+  }
+
+  Future deletePosyandu(String nama) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("kesehatan")
+        .collection("posyandu")
+        .doc("posyandu")
+        .collection("listPosyandu")
+        .doc(nama)
+        .delete();
+  }
+
+  Future updatePuskesmas(
+      String nama, Map<String, dynamic> updateDataFasilitas) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("kesehatan")
+        .collection("puskesmas")
+        .doc(nama)
+        .update(updateDataFasilitas);
+  }
+
+  Future deletePuskesmas(String nama) async {
+    return FirebaseFirestore.instance
+        .collection("kesejahteraanMasyarakat")
+        .doc("kesehatan")
+        .collection("puskesmas")
+        .doc(nama)
+        .delete();
   }
 
   getSejarah(editSejarah) {
@@ -136,5 +284,17 @@ class DatabaseMethods {
 
   getJK(editJK) {
     return this.jk = editJK;
+  }
+
+  getSiswa(editJmlSiswa) {
+    return this.siswa = editJmlSiswa;
+  }
+
+  getGuru(editJmlGuru) {
+    return this.guru = editJmlGuru;
+  }
+
+  getJmlFasilitas(editJmlFasilitas) {
+    return this.jml = editJmlFasilitas;
   }
 }

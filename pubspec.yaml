@@ -100,6 +100,7 @@ flutter:
     - assets/paud.jpg
     - assets/SD.jpg
     - assets/SMK.jpg
+    - assets/SMA.jpg
     - assets/TK.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see

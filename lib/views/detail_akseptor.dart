@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
+import 'package:profile_desa_jambi_kecil/views/edit_Kb.dart';
 
 class DetailAkseptor extends StatefulWidget {
   final int akseptorKB;
@@ -21,6 +23,26 @@ class DetailAkseptor extends StatefulWidget {
 }
 
 class _DetailAkseptorState extends State<DetailAkseptor> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+
+  void initState() {
+    getMyInfoFromSharedPreferences();
+    super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName()) ?? "USERNAME";
+    myEmail = (await SharedPreferenceHelper().getUserEmail()) ?? "USERNAME";
+    myUserCredential =
+        (await SharedPreferenceHelper().getUserCredentialId()) ?? "USERNAME";
+    myRole = (await SharedPreferenceHelper().getRole()) ?? "USERNAME";
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +52,28 @@ class _DetailAkseptorState extends State<DetailAkseptor> {
           "Data Tahun " + widget.tahun.toString(),
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          (myUserName != "USERNAME")
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return EditDataKB(
+                          widget.akseptorKB,
+                          widget.kondom,
+                          widget.suntik,
+                          widget.implan,
+                          widget.pil,
+                          widget.tahun);
+                    }));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.edit),
+                  ),
+                )
+              : SizedBox()
+        ],
       ),
       body: Container(
           margin: EdgeInsets.only(top: 10),

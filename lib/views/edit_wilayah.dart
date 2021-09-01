@@ -7,19 +7,37 @@ import 'package:profile_desa_jambi_kecil/model/database.dart';
 import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
 class EditWilayah extends StatefulWidget {
+  final String imagePath;
+  final String perbatasanUtara;
+  final String perbatasanTimur;
+  final String perbatasanSelatan;
+  final String perbatasanBarat;
+  final int luasWilayah;
+  final int rt;
+  final int lk;
+
+  EditWilayah(
+      this.imagePath,
+      this.perbatasanUtara,
+      this.perbatasanTimur,
+      this.perbatasanSelatan,
+      this.perbatasanBarat,
+      this.luasWilayah,
+      this.rt,
+      this.lk);
   @override
   _EditWilayahState createState() => _EditWilayahState();
 }
 
 class _EditWilayahState extends State<EditWilayah> {
-  String imagePath = "GAMBAR";
-  String perbatasanUtara = "GAMBAR";
-  String perbatasanTimur = "GAMBAR";
-  String perbatasanSelatan = "GAMBAR";
-  String perbatasanBarat = "GAMBAR";
-  int luasWilayah = 0;
-  int rt = 0;
-  int lk = 0;
+  var imagePathController;
+  var perbatasanUtaraController;
+  var perbatasanTimurController;
+  var perbatasanSelatanController;
+  var perbatasanBaratController;
+  var luasWilayahController;
+  var rtController;
+  var lkController;
   var imageDir;
 
   Future<File> getImage() async {
@@ -65,7 +83,7 @@ class _EditWilayahState extends State<EditWilayah> {
                     //   width: 5.0, // Underline thickness
                     // ))),
                     child: Text(
-                      "EDIT DATA WILAYAH DESA JAMBI KECIL",
+                      "EDIT DATA WILAYAH",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Popppins",
@@ -90,8 +108,9 @@ class _EditWilayahState extends State<EditWilayah> {
                             keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editWilayah) {
-                              perbatasanUtara =
-                                  DatabaseMethods().getLuasWilayah(editWilayah);
+                              luasWilayahController = int.tryParse(
+                                  DatabaseMethods()
+                                      .getLuasWilayah(editWilayah));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -112,7 +131,8 @@ class _EditWilayahState extends State<EditWilayah> {
                             keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editLK) {
-                              luasWilayah = DatabaseMethods().getLK(editLK);
+                              lkController =
+                                  int.tryParse(DatabaseMethods().getLK(editLK));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -133,28 +153,8 @@ class _EditWilayahState extends State<EditWilayah> {
                             keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editRT) {
-                              luasWilayah = DatabaseMethods().getRT(editRT);
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah RT",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editRT) {
-                              luasWilayah = DatabaseMethods().getRT(editRT);
+                              rtController =
+                                  int.tryParse(DatabaseMethods().getRT(editRT));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -174,7 +174,7 @@ class _EditWilayahState extends State<EditWilayah> {
                           child: TextFormField(
                             maxLines: null,
                             onChanged: (ediUtara) {
-                              luasWilayah = DatabaseMethods()
+                              perbatasanUtaraController = DatabaseMethods()
                                   .getPerbatasanUtara(ediUtara);
                             },
                             decoration: InputDecoration(
@@ -195,7 +195,7 @@ class _EditWilayahState extends State<EditWilayah> {
                           child: TextFormField(
                             maxLines: null,
                             onChanged: (editTimur) {
-                              luasWilayah = DatabaseMethods()
+                              perbatasanTimurController = DatabaseMethods()
                                   .getPerbatasanTimur(editTimur);
                             },
                             decoration: InputDecoration(
@@ -216,7 +216,7 @@ class _EditWilayahState extends State<EditWilayah> {
                           child: TextFormField(
                             maxLines: null,
                             onChanged: (editSelatan) {
-                              luasWilayah = DatabaseMethods()
+                              perbatasanSelatanController = DatabaseMethods()
                                   .getPerbatasanSelatan(editSelatan);
                             },
                             decoration: InputDecoration(
@@ -237,7 +237,7 @@ class _EditWilayahState extends State<EditWilayah> {
                           child: TextFormField(
                             maxLines: null,
                             onChanged: (editBarat) {
-                              luasWilayah = DatabaseMethods()
+                              perbatasanBaratController = DatabaseMethods()
                                   .getPerbatasanBarat(editBarat);
                             },
                             decoration: InputDecoration(
@@ -293,24 +293,28 @@ class _EditWilayahState extends State<EditWilayah> {
                                       )),
                             GestureDetector(
                               onTap: () async {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) {
-                                  return HomePage();
-                                }));
+                                Navigator.pop(context);
+
                                 if (imageDir != null) {
-                                  imagePath =
+                                  imagePathController =
                                       await DatabaseMethods.uploadGambar(
                                           imageDir);
                                 }
                                 Map<String, dynamic> updateInfo = {
-                                  "utara": perbatasanUtara,
-                                  "timur": perbatasanTimur,
-                                  "selatan": perbatasanSelatan,
-                                  "barat": perbatasanBarat,
-                                  "gambar": imagePath,
-                                  "lk": lk,
-                                  "rt": rt,
-                                  "luas": luasWilayah,
+                                  "utara": perbatasanUtaraController ??
+                                      widget.perbatasanUtara,
+                                  "timur": perbatasanTimurController ??
+                                      widget.perbatasanTimur,
+                                  "selatan": perbatasanSelatanController ??
+                                      widget.perbatasanSelatan,
+                                  "barat": perbatasanBaratController ??
+                                      widget.perbatasanBarat,
+                                  "gambar":
+                                      imagePathController ?? widget.imagePath,
+                                  "lk": lkController ?? widget.lk,
+                                  "rt": rtController ?? widget.rt,
+                                  "luas": luasWilayahController ??
+                                      widget.luasWilayah,
                                 };
 
                                 DatabaseMethods().updateDataWilayah(updateInfo);

@@ -49,7 +49,24 @@ class _WilayahPageState extends State<WilayahPage> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return EditWilayah();
+                          return StreamBuilder<DocumentSnapshot>(
+                              stream: wilayah.doc('wilayah').snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return EditWilayah(
+                                    snapshot.data!["gambar"],
+                                    snapshot.data!["utara"],
+                                    snapshot.data!["timur"],
+                                    snapshot.data!["selatan"],
+                                    snapshot.data!["barat"],
+                                    snapshot.data!["luas"],
+                                    snapshot.data!["rt"],
+                                    snapshot.data!["lk"],
+                                  );
+                                else {
+                                  return Text("Mohon Tunggu");
+                                }
+                              });
                         }));
                       },
                       child: Icon(Icons.edit)),

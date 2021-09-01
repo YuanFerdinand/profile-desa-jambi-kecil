@@ -3,33 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
 import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
-class EditBiodata extends StatefulWidget {
-  final String doc;
-  final String nama;
-  final String ttl;
-  final String jabatan;
-  final String agama;
-  final String jk;
+class EditDataKB extends StatefulWidget {
+  final int akseptorKB;
+  final int penggunaAlatKontrasepsiKondom;
+  final int penggunaAlatKontrasepsiSuntik;
+  final int penggunaKontrasepsiImplan;
+  final int penggunaKontrasepsiPil;
+  final int tahun;
 
-  EditBiodata(
-    this.doc,
-    this.nama,
-    this.ttl,
-    this.jabatan,
-    this.agama,
-    this.jk,
+  EditDataKB(
+    this.akseptorKB,
+    this.penggunaAlatKontrasepsiKondom,
+    this.penggunaAlatKontrasepsiSuntik,
+    this.penggunaKontrasepsiImplan,
+    this.penggunaKontrasepsiPil,
+    this.tahun,
   );
-
   @override
-  _EditBiodataState createState() => _EditBiodataState();
+  _EditDataKBState createState() => _EditDataKBState();
 }
 
-class _EditBiodataState extends State<EditBiodata> {
-  var nama;
-  var ttl;
-  var jabatan;
-  var agama;
-  var jk;
+class _EditDataKBState extends State<EditDataKB> {
+  var akseptorKBController;
+  var penggunaAlatKontrasepsiKondomController;
+  var penggunaAlatKontrasepsiSuntikController;
+  var penggunaKontrasepsiImplanController;
+  var penggunaKontrasepsiPilController;
+  var tahunController;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +61,7 @@ class _EditBiodataState extends State<EditBiodata> {
                     //   width: 5.0, // Underline thickness
                     // ))),
                     child: Text(
-                      "EDIT BIODATA",
+                      "EDIT DATA KB",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Popppins",
@@ -82,16 +83,18 @@ class _EditBiodataState extends State<EditBiodata> {
                       children: [
                         SingleChildScrollView(
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editNama) {
-                              nama = DatabaseMethods().getNama(editNama);
+                              akseptorKBController = int.tryParse(
+                                  DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Nama",
+                                hintText: "Jumlah Akseptor KB",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -102,16 +105,19 @@ class _EditBiodataState extends State<EditBiodata> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             maxLines: null,
-                            onChanged: (editAgama) {
-                              agama = DatabaseMethods().getAgama(editAgama);
+                            onChanged: (editNama) {
+                              penggunaAlatKontrasepsiKondomController =
+                                  int.tryParse(
+                                      DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Agama",
+                                hintText: "Jumlah Pengguna Kondom",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -122,16 +128,19 @@ class _EditBiodataState extends State<EditBiodata> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             maxLines: null,
-                            onChanged: (editTTL) {
-                              ttl = DatabaseMethods().getTTL(editTTL);
+                            onChanged: (editNama) {
+                              penggunaAlatKontrasepsiSuntikController =
+                                  int.tryParse(
+                                      DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Tanggal Lahir",
+                                hintText: "Jumlah Pengguna Kontrasepsi Suntik",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -142,17 +151,19 @@ class _EditBiodataState extends State<EditBiodata> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             maxLines: null,
-                            onChanged: (editJabatan) {
-                              jabatan =
-                                  DatabaseMethods().getJabatan(editJabatan);
+                            onChanged: (editNama) {
+                              penggunaKontrasepsiImplanController =
+                                  int.tryParse(
+                                      DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Jabatan",
+                                hintText: "Jumlah Pengguna Kontrasepsi Implan",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -163,16 +174,40 @@ class _EditBiodataState extends State<EditBiodata> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             maxLines: null,
-                            onChanged: (editjk) {
-                              jk = DatabaseMethods().getJK(editjk);
+                            onChanged: (editNama) {
+                              penggunaKontrasepsiPilController = int.tryParse(
+                                  DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Jenis Kelamin",
+                                hintText: "Jumlah Pengguna Kontrasepsi Pil",
+                                hintStyle: TextStyle(
+                                    fontFamily: 'Poppins', fontSize: 12)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                          width: 50,
+                        ),
+                        SingleChildScrollView(
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            maxLines: null,
+                            onChanged: (editNama) {
+                              tahunController = int.tryParse(
+                                  DatabaseMethods().getRT(editNama));
+                            },
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50)),
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: "Tahun",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -186,21 +221,31 @@ class _EditBiodataState extends State<EditBiodata> {
                           children: [
                             GestureDetector(
                               onTap: () async {
-                                Navigator.of(context).pushReplacement(
+                                Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                   return HomePage();
                                 }));
 
-                                Map<String, dynamic> updateInfo = {
-                                  "nama": nama ?? widget.nama,
-                                  "agama": agama ?? widget.agama,
-                                  "jabatan": jabatan ?? widget.jabatan,
-                                  "TTL": ttl ?? widget.ttl,
-                                  "jk": jk ?? widget.jk,
+                                Map<String, dynamic> addData = {
+                                  "akseptorKB":
+                                      akseptorKBController ?? widget.akseptorKB,
+                                  "penggunaAlatKontrasepsiKondom":
+                                      penggunaAlatKontrasepsiKondomController ??
+                                          widget.penggunaAlatKontrasepsiKondom,
+                                  "penggunaAlatKontrasepsiSuntik":
+                                      penggunaAlatKontrasepsiSuntikController ??
+                                          widget.penggunaAlatKontrasepsiSuntik,
+                                  "penggunaKontrasepsiImplan":
+                                      penggunaKontrasepsiImplanController ??
+                                          widget.penggunaKontrasepsiImplan,
+                                  "penggunaKontrasepsiPil":
+                                      penggunaKontrasepsiPilController ??
+                                          widget.penggunaKontrasepsiPil,
+                                  "tahun": tahunController ?? widget.tahun,
                                 };
 
-                                DatabaseMethods()
-                                    .updateBiodata(widget.doc, updateInfo);
+                                DatabaseMethods().editdataKB(
+                                    widget.tahun.toString(), addData);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -212,7 +257,7 @@ class _EditBiodataState extends State<EditBiodata> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 child: Center(
                                   child: Text(
-                                    "edit",
+                                    "SIMPAN",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -220,7 +265,7 @@ class _EditBiodataState extends State<EditBiodata> {
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                         SizedBox(

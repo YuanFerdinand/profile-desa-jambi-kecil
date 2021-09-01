@@ -7,13 +7,20 @@ import 'package:profile_desa_jambi_kecil/model/database.dart';
 import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
 class EditSejarah extends StatefulWidget {
+  final String imagePath;
+  final String desk;
+
+  EditSejarah(
+    this.imagePath,
+    this.desk,
+  );
   @override
   _EditSejarahState createState() => _EditSejarahState();
 }
 
 class _EditSejarahState extends State<EditSejarah> {
-  String imagePath = "GAMBAR";
-  String sejarah = "GAMBAR";
+  var imagePath;
+  var sejarah;
   var imageDir;
 
   Future<File> getImage() async {
@@ -140,18 +147,16 @@ class _EditSejarahState extends State<EditSejarah> {
                                       )),
                             GestureDetector(
                               onTap: () async {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (context) {
-                                  return HomePage();
-                                }));
+                                Navigator.pop(context);
+
                                 if (imageDir != null) {
                                   imagePath =
                                       await DatabaseMethods.uploadGambar(
                                           imageDir);
                                 }
                                 Map<String, dynamic> updateInfo = {
-                                  "desk": sejarah,
-                                  "gambar": imagePath,
+                                  "desk": sejarah ?? widget.desk,
+                                  "gambar": imagePath ?? widget.imagePath,
                                 };
 
                                 DatabaseMethods().updateSejarah(updateInfo);

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
 import 'package:profile_desa_jambi_kecil/produk/data_kepala_keluarga_card.dart';
+import 'package:profile_desa_jambi_kecil/views/add_kepala_keluarga.dart';
 
 class DataKepalaKeluarga extends StatefulWidget {
   const DataKepalaKeluarga({Key? key}) : super(key: key);
@@ -10,6 +12,26 @@ class DataKepalaKeluarga extends StatefulWidget {
 }
 
 class _DataKepalaKeluargaState extends State<DataKepalaKeluarga> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+
+  void initState() {
+    getMyInfoFromSharedPreferences();
+    super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName()) ?? "USERNAME";
+    myEmail = (await SharedPreferenceHelper().getUserEmail()) ?? "USERNAME";
+    myUserCredential =
+        (await SharedPreferenceHelper().getUserCredentialId()) ?? "USERNAME";
+    myRole = (await SharedPreferenceHelper().getRole()) ?? "USERNAME";
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +41,25 @@ class _DataKepalaKeluargaState extends State<DataKepalaKeluarga> {
           "Data Kepala Keluarga",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          (myUserName != "USERNAME")
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return AddDataKepalaKeluarga();
+                      }));
+                    },
+                    child: Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
+                  ),
+                )
+              : SizedBox()
+        ],
       ),
       body: Center(
         child: Container(

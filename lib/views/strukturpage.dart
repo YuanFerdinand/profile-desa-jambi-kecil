@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
 import 'package:profile_desa_jambi_kecil/produk/struktur_card.dart';
 import 'package:profile_desa_jambi_kecil/views/edit_biodata.dart';
 
@@ -12,6 +13,26 @@ class StrukturPage extends StatefulWidget {
 
 @override
 class _StrukturPageState extends State<StrukturPage> {
+  String myUserName = "USERNAME";
+  String myEmail = "USERNAME";
+  String myUserCredential = "USERNAME";
+  String myRole = "USERNAME";
+
+  void initState() {
+    getMyInfoFromSharedPreferences();
+    super.initState();
+  }
+
+  getMyInfoFromSharedPreferences() async {
+    myUserName = (await SharedPreferenceHelper().getUserName()) ?? "USERNAME";
+    myEmail = (await SharedPreferenceHelper().getUserEmail()) ?? "USERNAME";
+    myUserCredential =
+        (await SharedPreferenceHelper().getUserCredentialId()) ?? "USERNAME";
+    myRole = (await SharedPreferenceHelper().getRole()) ?? "USERNAME";
+
+    setState(() {});
+  }
+
   Widget build(BuildContext context) {
     FirebaseFirestore dbstruktur = FirebaseFirestore.instance;
     CollectionReference struktur = dbstruktur.collection('struktur');
@@ -29,7 +50,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("lurah");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('lurah').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "lurah",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -129,7 +165,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("sekretaris");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('sekretaris').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "sekretaris",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -229,7 +280,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("kasiKesos");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('kasiKesos').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "kasiKesos",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -329,7 +395,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("kasiPem");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('kasiPem').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "kasiPem",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -429,7 +510,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("kasiTrantib");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('kasiTrantib').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "kasiTrantib",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -529,7 +625,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("FU1");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('FU1').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "FU1",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -629,7 +740,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("FU2");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('FU2').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "FU2",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -729,7 +855,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("FU3");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('FU3').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "FU3",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -829,7 +970,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("FU4");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('FU4').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "FU4",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -929,7 +1085,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("Tks1");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('Tks1').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "Tks1",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
@@ -1029,7 +1200,22 @@ class _StrukturPageState extends State<StrukturPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return EditBiodata("Tks2");
+                return StreamBuilder<DocumentSnapshot>(
+                    stream: struktur.doc('Tks2').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return EditBiodata(
+                          "Tks2",
+                          snapshot.data!["nama"],
+                          snapshot.data!["TTL"],
+                          snapshot.data!["jabatan"],
+                          snapshot.data!["agama"],
+                          snapshot.data!["jk"],
+                        );
+                      else {
+                        return Text("Mohon Tunggu");
+                      }
+                    });
               }));
             },
             child: Container(
