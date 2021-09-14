@@ -53,6 +53,13 @@ class DatabaseMethods {
         .update(updateInfo);
   }
 
+  Future updatePembangunan(Map<String, dynamic> updateInfo) async {
+    return FirebaseFirestore.instance
+        .collection("pembangunanDanPemberdayaan")
+        .doc("pembangunan")
+        .update(updateInfo);
+  }
+
   Future updateDataWilayah(Map<String, dynamic> updateInfo) async {
     return FirebaseFirestore.instance
         .collection("luasWilayah")
@@ -224,6 +231,87 @@ class DatabaseMethods {
         .collection("puskesmas")
         .doc(nama)
         .delete();
+  }
+
+  Future addDataKesenian(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance.collection("seni").doc(id).set(addData);
+  }
+
+  Future updateDataKesenian(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("seni")
+        .doc(id)
+        .update(addData);
+  }
+
+  Future deleteDataKesenian(id) async {
+    return FirebaseFirestore.instance.collection("seni").doc(id).delete();
+  }
+
+  Future addDataKebudayaan(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance.collection("budaya").doc(id).set(addData);
+  }
+
+  Future updateDataKebudayaan(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("budaya")
+        .doc(id)
+        .update(addData);
+  }
+
+  Future deleteDataKebudayaan(id) async {
+    return FirebaseFirestore.instance.collection("budaya").doc(id).delete();
+  }
+
+  Future addDataMakanan(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("makanan")
+        .doc(id)
+        .set(addData);
+  }
+
+  Future updateDataMakanan(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("makanan")
+        .doc(id)
+        .update(addData);
+  }
+
+  Future deleteDataMakanan(id) async {
+    return FirebaseFirestore.instance.collection("makanan").doc(id).delete();
+  }
+
+  Future addDataWisata(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance.collection("wisata").doc(id).set(addData);
+  }
+
+  Future updateDataWisata(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("wisata")
+        .doc(id)
+        .update(addData);
+  }
+
+  Future deleteDataWisata(id) async {
+    return FirebaseFirestore.instance.collection("wisata").doc(id).delete();
+  }
+
+  Future addDataPerangkatKelurahan(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("struktur")
+        .doc(id)
+        .set(addData);
+  }
+
+  Future updateDataPerangkatKelurahan(id, Map<String, dynamic> addData) async {
+    return FirebaseFirestore.instance
+        .collection("struktur")
+        .doc(id)
+        .update(addData);
+  }
+
+  Future deleteDataPerangkatKelurahan(id) async {
+    return FirebaseFirestore.instance.collection("struktur").doc(id).delete();
   }
 
   getSejarah(editSejarah) {

@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
-import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
 class AddDataPerkembangan extends StatefulWidget {
   @override
@@ -160,10 +158,10 @@ class _AddDataPerkembanganState extends State<AddDataPerkembangan> {
                                 Navigator.pop(context);
 
                                 Map<String, dynamic> addData = {
-                                  "tahun": tahunController,
-                                  "laki": lakiController,
-                                  "perempuan": perempuanController,
-                                  "total": totalController,
+                                  "tahun": tahunController ?? 0,
+                                  "laki": lakiController ?? 0,
+                                  "perempuan": perempuanController ?? 0,
+                                  "total": totalController ?? 0,
                                 };
 
                                 DatabaseMethods().addPerkembanganPenduduk(

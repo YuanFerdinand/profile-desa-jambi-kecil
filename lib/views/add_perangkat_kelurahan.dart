@@ -1,43 +1,33 @@
-//import 'dart:ffi';
 import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
 
-class EditWilayah extends StatefulWidget {
-  final String imagePath;
-  final String perbatasanUtara;
-  final String perbatasanTimur;
-  final String perbatasanSelatan;
-  final String perbatasanBarat;
-  final int luasWilayah;
-  final int rt;
-  final int lk;
-
-  EditWilayah(
-      this.imagePath,
-      this.perbatasanUtara,
-      this.perbatasanTimur,
-      this.perbatasanSelatan,
-      this.perbatasanBarat,
-      this.luasWilayah,
-      this.rt,
-      this.lk);
+class AddPerangkatKelurahan extends StatefulWidget {
   @override
-  _EditWilayahState createState() => _EditWilayahState();
+  _AddPerangkatKelurahanState createState() => _AddPerangkatKelurahanState();
 }
 
-class _EditWilayahState extends State<EditWilayah> {
-  var imagePathController;
-  var perbatasanUtaraController;
-  var perbatasanTimurController;
-  var perbatasanSelatanController;
-  var perbatasanBaratController;
-  var luasWilayahController;
-  var rtController;
-  var lkController;
+class _AddPerangkatKelurahanState extends State<AddPerangkatKelurahan> {
+  var namaController;
+  var imagePath;
   var imageDir;
+  var ttlController;
+  var kodeController;
+  var jkController;
+  var jabatanController;
+  var agamaController;
+  var _chosenValue1;
+  var _chosenValue2;
+
+  static const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   Future<File> getImage() async {
     var imageFile;
@@ -48,8 +38,9 @@ class _EditWilayahState extends State<EditWilayah> {
         imageFile = File(pickedFile.path);
       });
       return imageDir = imageFile;
-    } else {}
-    return imageDir = imageFile;
+    } else {
+      return imageDir = imageFile;
+    }
   }
 
   @override
@@ -82,7 +73,7 @@ class _EditWilayahState extends State<EditWilayah> {
                     //   width: 5.0, // Underline thickness
                     // ))),
                     child: Text(
-                      "EDIT DATA WILAYAH",
+                      "TAMBAH DATA",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Popppins",
@@ -104,63 +95,17 @@ class _EditWilayahState extends State<EditWilayah> {
                       children: [
                         SingleChildScrollView(
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             maxLines: null,
-                            onChanged: (editWilayah) {
-                              luasWilayahController = int.tryParse(
-                                  DatabaseMethods()
-                                      .getLuasWilayah(editWilayah));
+                            onChanged: (editNama) {
+                              namaController =
+                                  (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Luas Wilayah",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editLK) {
-                              lkController =
-                                  int.tryParse(DatabaseMethods().getLK(editLK));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah LK",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editRT) {
-                              rtController =
-                                  int.tryParse(DatabaseMethods().getRT(editRT));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah RT",
+                                hintText: "Nama",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -172,16 +117,16 @@ class _EditWilayahState extends State<EditWilayah> {
                         SingleChildScrollView(
                           child: TextFormField(
                             maxLines: null,
-                            onChanged: (ediUtara) {
-                              perbatasanUtaraController = DatabaseMethods()
-                                  .getPerbatasanUtara(ediUtara);
+                            onChanged: (editNama) {
+                              ttlController =
+                                  (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Perbatasan Utara",
+                                hintText: "Tempat dan Tanggal Lahir",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -193,16 +138,16 @@ class _EditWilayahState extends State<EditWilayah> {
                         SingleChildScrollView(
                           child: TextFormField(
                             maxLines: null,
-                            onChanged: (editTimur) {
-                              perbatasanTimurController = DatabaseMethods()
-                                  .getPerbatasanTimur(editTimur);
+                            onChanged: (editNama) {
+                              agamaController =
+                                  (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Perbatasan Timur",
+                                hintText: "Agama",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -214,16 +159,16 @@ class _EditWilayahState extends State<EditWilayah> {
                         SingleChildScrollView(
                           child: TextFormField(
                             maxLines: null,
-                            onChanged: (editSelatan) {
-                              perbatasanSelatanController = DatabaseMethods()
-                                  .getPerbatasanSelatan(editSelatan);
+                            onChanged: (editNama) {
+                              jkController =
+                                  (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Perbatasan Selatan",
+                                hintText: "Jenis Kelamin",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -232,22 +177,65 @@ class _EditWilayahState extends State<EditWilayah> {
                           height: 50,
                           width: 50,
                         ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            maxLines: null,
-                            onChanged: (editBarat) {
-                              perbatasanBaratController = DatabaseMethods()
-                                  .getPerbatasanBarat(editBarat);
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Perbatasan Barat",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
+                        DropdownButtonFormField(
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          validator: (value) =>
+                              value == null ? 'Jabatan Belum Dipilih' : null,
+                          value: _chosenValue1,
+                          items: [
+                            'Lurah',
+                            'Sekretaris Kelurahan',
+                            'Kasi Kesos dan Pelum',
+                            'Kasi Pem dan Pembangunan',
+                            'Kasi Trantib',
+                            'Tks',
+                            'Fungsional Umum',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          hint: Text("Pilih Jabatan"),
+                          onChanged: (value) {
+                            setState(() {
+                              _chosenValue1 = value;
+                              this.jabatanController = _chosenValue1;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          height: 50,
+                          width: 50,
+                        ),
+                        DropdownButtonFormField(
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          validator: (value) => value == null
+                              ? 'Kode jabatan belum dipilih'
+                              : null,
+                          value: _chosenValue2,
+                          items: [
+                            '1 (Lurah)',
+                            '2 (Sekretaris Lurah)',
+                            '3 (Kasi Kesos dan Pelum)',
+                            '4 (Kasi Pem dan Pembangunan)',
+                            '5 (Kasi Trantib)',
+                            '6 (Tks)',
+                            '7 (Fungsional Umum)',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          hint: Text("Pilih Kode Jabatan"),
+                          onChanged: (value) {
+                            setState(() {
+                              _chosenValue2 = value;
+                              this.kodeController = int.tryParse(
+                                  _chosenValue2.toString().substring(0, 1));
+                            });
+                          },
                         ),
                         SizedBox(
                           height: 50,
@@ -268,11 +256,11 @@ class _EditWilayahState extends State<EditWilayah> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text("Upload file",
+                                          Text("Upload Gambar",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 18)),
+                                                  fontSize: 12)),
                                           IconButton(
                                               icon: Icon(Icons.upload_file),
                                               color: Colors.white,
@@ -293,30 +281,27 @@ class _EditWilayahState extends State<EditWilayah> {
                             GestureDetector(
                               onTap: () async {
                                 Navigator.pop(context);
-
                                 if (imageDir != null) {
-                                  imagePathController =
+                                  imagePath =
                                       await DatabaseMethods.uploadGambar(
                                           imageDir);
                                 }
-                                Map<String, dynamic> updateInfo = {
-                                  "utara": perbatasanUtaraController ??
-                                      widget.perbatasanUtara,
-                                  "timur": perbatasanTimurController ??
-                                      widget.perbatasanTimur,
-                                  "selatan": perbatasanSelatanController ??
-                                      widget.perbatasanSelatan,
-                                  "barat": perbatasanBaratController ??
-                                      widget.perbatasanBarat,
-                                  "gambar":
-                                      imagePathController ?? widget.imagePath,
-                                  "lk": lkController ?? widget.lk,
-                                  "rt": rtController ?? widget.rt,
-                                  "luas": luasWilayahController ??
-                                      widget.luasWilayah,
+                                String random = getRandomString(25);
+                                Map<String, dynamic> addData = {
+                                  "kode": kodeController ?? 0,
+                                  "nama": namaController ?? "Kosong",
+                                  "createdAt": DateTime.now(),
+                                  "lastUpdateAt": DateTime.now(),
+                                  "gambar": imagePath ?? "GAMBAR",
+                                  "id": random,
+                                  "jk": jkController,
+                                  "jabatan": jabatanController,
+                                  "agama": agamaController,
+                                  "TTL": ttlController,
                                 };
 
-                                DatabaseMethods().updateDataWilayah(updateInfo);
+                                DatabaseMethods()
+                                    .addDataPerangkatKelurahan(random, addData);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -328,7 +313,7 @@ class _EditWilayahState extends State<EditWilayah> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 child: Center(
                                   child: Text(
-                                    "edit",
+                                    "TAMBAH",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -336,7 +321,7 @@ class _EditWilayahState extends State<EditWilayah> {
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                         SizedBox(

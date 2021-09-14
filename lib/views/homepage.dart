@@ -3,11 +3,16 @@ import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
 import 'package:profile_desa_jambi_kecil/model/auth.dart';
 import 'package:profile_desa_jambi_kecil/views/datapenduduk.dart';
 import 'package:profile_desa_jambi_kecil/views/fasilitas.dart';
+import 'package:profile_desa_jambi_kecil/views/kebudayaan.dart';
+import 'package:profile_desa_jambi_kecil/views/kesenian.dart';
 import 'package:profile_desa_jambi_kecil/views/login_page.dart';
+import 'package:profile_desa_jambi_kecil/views/makanan_khas.dart';
+import 'package:profile_desa_jambi_kecil/views/register_page.dart';
 import 'package:profile_desa_jambi_kecil/views/sejarah.dart';
 import 'package:profile_desa_jambi_kecil/views/strukturpage.dart';
 import 'package:profile_desa_jambi_kecil/views/visi_misi.dart';
 import 'package:profile_desa_jambi_kecil/views/wilayahpage.dart';
+import 'package:profile_desa_jambi_kecil/views/wisata.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -72,10 +77,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.all(10),
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(20)),
               height: MediaQuery.of(context).size.height * 0.2,
@@ -98,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: MediaQuery.of(context).size.width * 1,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(20),
@@ -449,6 +454,236 @@ class _HomePageState extends State<HomePage> {
                                 child: Center(
                                   child: Text(
                                     "Data Desa",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return KesenianPage();
+                    }));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 15,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/kesenian.jpeg"),
+                                    fit: BoxFit.fill)),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20)),
+                                    color: Color(0xff008000)),
+                                child: Center(
+                                  child: Text(
+                                    "Seni",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return KebudayaanPage();
+                    }));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 15,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/budaya.jpg"),
+                                    fit: BoxFit.fill)),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20)),
+                                    color: Color(0xff008000)),
+                                child: Center(
+                                  child: Text(
+                                    "Budaya",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return MakananKhasPage();
+                    }));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 15,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/makanankhas.jpg"),
+                                    fit: BoxFit.fill)),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20)),
+                                    color: Color(0xff008000)),
+                                child: Center(
+                                  child: Text(
+                                    "Makanan Khas",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return WisataPage();
+                    }));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 15,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/wisata.jpg"),
+                                    fit: BoxFit.fill)),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20)),
+                                    color: Color(0xff008000)),
+                                child: Center(
+                                  child: Text(
+                                    "Wisata",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,

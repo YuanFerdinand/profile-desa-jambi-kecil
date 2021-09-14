@@ -1,21 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
-import 'package:profile_desa_jambi_kecil/produk/data_kelurahan_card.dart';
-import 'package:profile_desa_jambi_kecil/produk/data_kesenian_card.dart';
-import 'package:profile_desa_jambi_kecil/produk/data_perkembangan_card.dart';
-import 'package:profile_desa_jambi_kecil/views/add_data_Kesenian.dart';
-import 'package:profile_desa_jambi_kecil/views/add_perangkat_kelurahan.dart';
-import 'package:profile_desa_jambi_kecil/views/add_perkembangan_penduduk.dart';
+import 'package:profile_desa_jambi_kecil/produk/data_makanan_card.dart';
+import 'package:profile_desa_jambi_kecil/views/add_data_makanan.dart';
 
-class StrukturPage extends StatefulWidget {
-  const StrukturPage({Key? key}) : super(key: key);
+class MakananKhasPage extends StatefulWidget {
+  const MakananKhasPage({Key? key}) : super(key: key);
 
   @override
-  _StrukturPageState createState() => _StrukturPageState();
+  _MakananKhasPageState createState() => _MakananKhasPageState();
 }
 
-class _StrukturPageState extends State<StrukturPage> {
+class _MakananKhasPageState extends State<MakananKhasPage> {
   String myUserName = "USERNAME";
   String myEmail = "USERNAME";
   String myUserCredential = "USERNAME";
@@ -42,7 +38,7 @@ class _StrukturPageState extends State<StrukturPage> {
       appBar: AppBar(
         backgroundColor: Color(0xff008000),
         title: Text(
-          "Struktur Kelurahan",
+          "Makanan Khas",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -55,7 +51,7 @@ class _StrukturPageState extends State<StrukturPage> {
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return AddPerangkatKelurahan();
+                        return AddDataMakanan();
                       }));
                     },
                     child: Icon(
@@ -73,8 +69,8 @@ class _StrukturPageState extends State<StrukturPage> {
           width: MediaQuery.of(context).size.width * 0.97,
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("struktur")
-                  .orderBy('kode', descending: false)
+                  .collection("makanan")
+                  .orderBy('createdAt', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -84,17 +80,13 @@ class _StrukturPageState extends State<StrukturPage> {
                       itemBuilder: (context, index) {
                         DocumentSnapshot documentSnapshot =
                             (snapshot.data! as QuerySnapshot).docs[index];
-                        return DataKelurahanCard(
+                        return DataMakananKhasCard(
                           documentSnapshot["createdAt"],
-                          documentSnapshot["TTL"],
+                          documentSnapshot["desk"],
                           documentSnapshot["gambar"],
                           documentSnapshot["lastUpdateAt"],
                           documentSnapshot["nama"],
                           documentSnapshot["id"],
-                          documentSnapshot["jk"],
-                          documentSnapshot["jabatan"],
-                          documentSnapshot["agama"],
-                          documentSnapshot["kode"],
                         );
                       });
                 } else {

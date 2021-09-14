@@ -1,16 +1,39 @@
+//import 'dart:ffi';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
 
-class AddDataKepalaKeluarga extends StatefulWidget {
+class EditPembangunan extends StatefulWidget {
+  final String imagePath;
+  final String desk;
+
+  EditPembangunan(
+    this.imagePath,
+    this.desk,
+  );
   @override
-  _AddDataKepalaKeluargaState createState() => _AddDataKepalaKeluargaState();
+  _EditPembangunanState createState() => _EditPembangunanState();
 }
 
-class _AddDataKepalaKeluargaState extends State<AddDataKepalaKeluarga> {
-  var tahunController;
-  var lakiController;
-  var perempuanController;
-  var totalController;
+class _EditPembangunanState extends State<EditPembangunan> {
+  var imagePath;
+  var sejarah;
+  var imageDir;
+
+  Future<File> getImage() async {
+    var imageFile;
+    final picker = ImagePicker();
+    PickedFile? pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+      return imageDir = imageFile;
+    } else {
+      return imageDir = imageFile;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +65,7 @@ class _AddDataKepalaKeluargaState extends State<AddDataKepalaKeluarga> {
                     //   width: 5.0, // Underline thickness
                     // ))),
                     child: Text(
-                      "TAMBAH PERKEMBANGAN DATA",
+                      "EDIT DATA PEMBANGUNAN",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Popppins",
@@ -64,84 +87,17 @@ class _AddDataKepalaKeluargaState extends State<AddDataKepalaKeluarga> {
                       children: [
                         SingleChildScrollView(
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             maxLines: null,
-                            onChanged: (editNama) {
-                              tahunController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
+                            onChanged: (editSejarah) {
+                              sejarah =
+                                  DatabaseMethods().getSejarah(editSejarah);
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Tahun Perkembangan",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editNama) {
-                              lakiController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah KK Laki Laki",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editNama) {
-                              perempuanController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah KK Perempuan",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editNama) {
-                              totalController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah Total",
+                                hintText: "Deskripsi Pembangunan",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -153,19 +109,55 @@ class _AddDataKepalaKeluargaState extends State<AddDataKepalaKeluarga> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xff008000),
+                                    borderRadius: BorderRadius.circular(50)),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: (imageDir == null)
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text("Upload file",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18)),
+                                          IconButton(
+                                              icon: Icon(Icons.upload_file),
+                                              color: Colors.white,
+                                              iconSize: 30,
+                                              onPressed: () {
+                                                getImage();
+                                              })
+                                        ],
+                                      )
+                                    : Text(
+                                        imageDir.toString(),
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      )),
                             GestureDetector(
                               onTap: () async {
                                 Navigator.pop(context);
 
-                                Map<String, dynamic> addData = {
-                                  "tahun": tahunController ?? 0,
-                                  "laki": lakiController ?? 0,
-                                  "perempuan": perempuanController ?? 0,
-                                  "total": totalController ?? 0,
+                                if (imageDir != null) {
+                                  imagePath =
+                                      await DatabaseMethods.uploadGambar(
+                                          imageDir);
+                                }
+                                Map<String, dynamic> updateInfo = {
+                                  "desk": sejarah ?? widget.desk,
+                                  "gambar": imagePath ?? widget.imagePath,
                                 };
 
-                                DatabaseMethods().addDataKepalaKeluarga(
-                                    tahunController, addData);
+                                DatabaseMethods().updatePembangunan(updateInfo);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -177,7 +169,7 @@ class _AddDataKepalaKeluargaState extends State<AddDataKepalaKeluarga> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 child: Center(
                                   child: Text(
-                                    "SIMPAN",
+                                    "edit",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -185,7 +177,7 @@ class _AddDataKepalaKeluargaState extends State<AddDataKepalaKeluarga> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         SizedBox(

@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
-import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
 class AddPuskesmas extends StatefulWidget {
   @override
@@ -185,13 +183,13 @@ class _AddPuskesmasState extends State<AddPuskesmas> {
                                 Navigator.pop(context);
 
                                 Map<String, dynamic> addPuskesmas = {
-                                  "nama": namaController,
-                                  "dokter": dokterController,
-                                  "bidan": bidanController,
-                                  "perawat": perawatController,
-                                  "tenagaKerja": tenagaKerjaController,
+                                  "nama": namaController ?? "Kosong",
+                                  "dokter": dokterController ?? 0,
+                                  "bidan": bidanController ?? 0,
+                                  "perawat": perawatController ?? 0,
+                                  "tenagaKerja": tenagaKerjaController ?? 0,
                                   "createdAt": DateTime.now(),
-                                  "id": namaController,
+                                  "id": namaController ?? "Kosong",
                                 };
 
                                 DatabaseMethods()

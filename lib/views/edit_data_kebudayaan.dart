@@ -1,35 +1,50 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
 import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
-class EditBiodata extends StatefulWidget {
-  final String doc;
+class EditDataKebudayaan extends StatefulWidget {
+  final Timestamp createdAt;
+  final String desk;
+  final String gambar;
+  final Timestamp lastUpdateAt;
   final String nama;
-  final String ttl;
-  final String jabatan;
-  final String agama;
-  final String jk;
+  final String id;
 
-  EditBiodata(
-    this.doc,
+  EditDataKebudayaan(
+    this.createdAt,
+    this.desk,
+    this.gambar,
+    this.lastUpdateAt,
     this.nama,
-    this.ttl,
-    this.jabatan,
-    this.agama,
-    this.jk,
+    this.id,
   );
-
   @override
-  _EditBiodataState createState() => _EditBiodataState();
+  _EditDataKebudayaanState createState() => _EditDataKebudayaanState();
 }
 
-class _EditBiodataState extends State<EditBiodata> {
-  var nama;
-  var ttl;
-  var jabatan;
-  var agama;
-  var jk;
+class _EditDataKebudayaanState extends State<EditDataKebudayaan> {
+  var imagePath;
+  var deskController;
+  var namaController;
+  var imageDir;
+
+  Future<File> getImage() async {
+    var imageFile;
+    final picker = ImagePicker();
+    PickedFile? pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+      return imageDir = imageFile;
+    } else {
+      return imageDir = imageFile;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +75,7 @@ class _EditBiodataState extends State<EditBiodata> {
                     //   width: 5.0, // Underline thickness
                     // ))),
                     child: Text(
-                      "EDIT BIODATA",
+                      "EDIT DATA KEBUDAYAAN",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Popppins",
@@ -83,15 +98,16 @@ class _EditBiodataState extends State<EditBiodata> {
                         SingleChildScrollView(
                           child: TextFormField(
                             maxLines: null,
-                            onChanged: (editNama) {
-                              nama = DatabaseMethods().getNama(editNama);
+                            onChanged: (editSejarah) {
+                              namaController =
+                                  DatabaseMethods().getSejarah(editSejarah);
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Nama",
+                                hintText: "Nama Budaya",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -103,76 +119,16 @@ class _EditBiodataState extends State<EditBiodata> {
                         SingleChildScrollView(
                           child: TextFormField(
                             maxLines: null,
-                            onChanged: (editAgama) {
-                              agama = DatabaseMethods().getAgama(editAgama);
+                            onChanged: (editSejarah) {
+                              deskController =
+                                  DatabaseMethods().getSejarah(editSejarah);
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Agama",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            maxLines: null,
-                            onChanged: (editTTL) {
-                              ttl = DatabaseMethods().getTTL(editTTL);
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Tanggal Lahir",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            maxLines: null,
-                            onChanged: (editJabatan) {
-                              jabatan =
-                                  DatabaseMethods().getJabatan(editJabatan);
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jabatan",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                        ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            maxLines: null,
-                            onChanged: (editjk) {
-                              jk = DatabaseMethods().getJK(editjk);
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jenis Kelamin",
+                                hintText: "Deskripsi Budaya",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -184,23 +140,61 @@ class _EditBiodataState extends State<EditBiodata> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xff008000),
+                                    borderRadius: BorderRadius.circular(50)),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: (imageDir == null)
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text("Upload file",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18)),
+                                          IconButton(
+                                              icon: Icon(Icons.upload_file),
+                                              color: Colors.white,
+                                              iconSize: 30,
+                                              onPressed: () {
+                                                getImage();
+                                              })
+                                        ],
+                                      )
+                                    : Text(
+                                        imageDir.toString(),
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      )),
                             GestureDetector(
                               onTap: () async {
-                                Navigator.of(context).pushReplacement(
+                                Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return HomePage();
                                 }));
 
+                                if (imageDir != null) {
+                                  imagePath =
+                                      await DatabaseMethods.uploadGambar(
+                                          imageDir);
+                                }
                                 Map<String, dynamic> updateInfo = {
-                                  "nama": nama ?? widget.nama,
-                                  "agama": agama ?? widget.agama,
-                                  "jabatan": jabatan ?? widget.jabatan,
-                                  "TTL": ttl ?? widget.ttl,
-                                  "jk": jk ?? widget.jk,
+                                  "nama": namaController ?? widget.nama,
+                                  "desk": deskController ?? widget.desk,
+                                  "gambar": imagePath ?? widget.gambar,
+                                  "lastUpdateAt": DateTime.now(),
                                 };
 
-                                DatabaseMethods()
-                                    .updateBiodata(widget.doc, updateInfo);
+                                DatabaseMethods().updateDataKebudayaan(
+                                    widget.id, updateInfo);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -212,7 +206,7 @@ class _EditBiodataState extends State<EditBiodata> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 child: Center(
                                   child: Text(
-                                    "edit",
+                                    "Edit",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,

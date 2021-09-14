@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/model/auth.dart';
 import 'package:profile_desa_jambi_kecil/views/register_page.dart';
+import 'package:profile_desa_jambi_kecil/views/reset_password.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -165,22 +166,15 @@ class _LoginPageState extends State<LoginPage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              "Belum memiliki akun? ",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                              ),
-                            ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return RegisterPage();
+                                  return ResetPasswordPage();
                                 }));
                               },
                               child: Text(
-                                "Daftar disini! ",
+                                "Ganti Kata Sandi ",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,

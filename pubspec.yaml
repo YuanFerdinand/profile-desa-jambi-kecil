@@ -34,6 +34,7 @@ dependencies:
   firebase_database:
   shared_preferences:
   image_picker:
+  form_field_validator: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
     - assets/wilayahpeta.PNG
     - assets/latar.jpg
     - assets/latar.jpeg
+    - assets/kesenian.jpeg
     - assets/gradient1.jpg
     - assets/gradient2.jpg
     - assets/gradient3.jpg
@@ -88,6 +90,7 @@ flutter:
     - assets/akseptorkb.png
     - assets/implan.png
     - assets/suntik.png
+    - assets/no_image.png
     - assets/kondom.jpg
     - assets/pil.jpg
     - assets/backgroundkb.jpg
@@ -102,6 +105,10 @@ flutter:
     - assets/SMK.jpg
     - assets/SMA.jpg
     - assets/TK.jpg
+    - assets/pembangunan.jpg
+    - assets/wisata.jpg
+    - assets/makanankhas.jpg
+    - assets/budaya.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

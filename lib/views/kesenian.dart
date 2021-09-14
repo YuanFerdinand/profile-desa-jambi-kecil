@@ -1,21 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/helper/shared_preference.dart';
-import 'package:profile_desa_jambi_kecil/produk/data_kelurahan_card.dart';
 import 'package:profile_desa_jambi_kecil/produk/data_kesenian_card.dart';
 import 'package:profile_desa_jambi_kecil/produk/data_perkembangan_card.dart';
 import 'package:profile_desa_jambi_kecil/views/add_data_Kesenian.dart';
-import 'package:profile_desa_jambi_kecil/views/add_perangkat_kelurahan.dart';
 import 'package:profile_desa_jambi_kecil/views/add_perkembangan_penduduk.dart';
 
-class StrukturPage extends StatefulWidget {
-  const StrukturPage({Key? key}) : super(key: key);
+class KesenianPage extends StatefulWidget {
+  const KesenianPage({Key? key}) : super(key: key);
 
   @override
-  _StrukturPageState createState() => _StrukturPageState();
+  _KesenianPageState createState() => _KesenianPageState();
 }
 
-class _StrukturPageState extends State<StrukturPage> {
+class _KesenianPageState extends State<KesenianPage> {
   String myUserName = "USERNAME";
   String myEmail = "USERNAME";
   String myUserCredential = "USERNAME";
@@ -42,7 +40,7 @@ class _StrukturPageState extends State<StrukturPage> {
       appBar: AppBar(
         backgroundColor: Color(0xff008000),
         title: Text(
-          "Struktur Kelurahan",
+          "Kesenian",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -55,7 +53,7 @@ class _StrukturPageState extends State<StrukturPage> {
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return AddPerangkatKelurahan();
+                        return AddDataKesenian();
                       }));
                     },
                     child: Icon(
@@ -73,8 +71,8 @@ class _StrukturPageState extends State<StrukturPage> {
           width: MediaQuery.of(context).size.width * 0.97,
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("struktur")
-                  .orderBy('kode', descending: false)
+                  .collection("seni")
+                  .orderBy('createdAt', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -84,17 +82,13 @@ class _StrukturPageState extends State<StrukturPage> {
                       itemBuilder: (context, index) {
                         DocumentSnapshot documentSnapshot =
                             (snapshot.data! as QuerySnapshot).docs[index];
-                        return DataKelurahanCard(
+                        return DataKesenianCard(
                           documentSnapshot["createdAt"],
-                          documentSnapshot["TTL"],
+                          documentSnapshot["desk"],
                           documentSnapshot["gambar"],
                           documentSnapshot["lastUpdateAt"],
                           documentSnapshot["nama"],
                           documentSnapshot["id"],
-                          documentSnapshot["jk"],
-                          documentSnapshot["jabatan"],
-                          documentSnapshot["agama"],
-                          documentSnapshot["kode"],
                         );
                       });
                 } else {

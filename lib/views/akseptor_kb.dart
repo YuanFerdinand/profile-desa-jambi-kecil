@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/produk/data_kb_card.dart';
-import 'package:profile_desa_jambi_kecil/produk/data_perkembangan_card.dart';
 
 class AkseptorKB extends StatefulWidget {
   const AkseptorKB({Key? key}) : super(key: key);

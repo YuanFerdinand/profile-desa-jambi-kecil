@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
-import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
 class AddPosyandu extends StatefulWidget {
   @override
@@ -137,11 +135,11 @@ class _AddPosyanduState extends State<AddPosyandu> {
                                 Navigator.pop(context);
 
                                 Map<String, dynamic> addPuskesmas = {
-                                  "nama": nama,
-                                  "lokasi": lokasi,
-                                  "petugas": petugas,
+                                  "nama": nama ?? "Kosong",
+                                  "lokasi": lokasi ?? "Kosong",
+                                  "petugas": petugas ?? 0,
                                   "createdAt": DateTime.now(),
-                                  "id": nama,
+                                  "id": nama ?? "Kosong",
                                 };
 
                                 DatabaseMethods()

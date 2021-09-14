@@ -1,34 +1,54 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:profile_desa_jambi_kecil/model/database.dart';
 import 'package:profile_desa_jambi_kecil/views/homepage.dart';
 
-class EditDataKB extends StatefulWidget {
-  final int akseptorKB;
-  final int penggunaAlatKontrasepsiKondom;
-  final int penggunaAlatKontrasepsiSuntik;
-  final int penggunaKontrasepsiImplan;
-  final int penggunaKontrasepsiPil;
-  final int tahun;
+class EditDataKelurahan extends StatefulWidget {
+  final Timestamp createdAt;
+  final String ttl;
+  final String gambar;
+  final Timestamp lastUpdateAt;
+  final String nama;
+  final String id;
+  final String jk;
+  final String jabatan;
+  final String agama;
+  final int kode;
 
-  EditDataKB(
-    this.akseptorKB,
-    this.penggunaAlatKontrasepsiKondom,
-    this.penggunaAlatKontrasepsiSuntik,
-    this.penggunaKontrasepsiImplan,
-    this.penggunaKontrasepsiPil,
-    this.tahun,
-  );
+  EditDataKelurahan(this.createdAt, this.ttl, this.gambar, this.lastUpdateAt,
+      this.nama, this.id, this.jk, this.jabatan, this.agama, this.kode);
   @override
-  _EditDataKBState createState() => _EditDataKBState();
+  _EditDataKelurahanState createState() => _EditDataKelurahanState();
 }
 
-class _EditDataKBState extends State<EditDataKB> {
-  var akseptorKBController;
-  var penggunaAlatKontrasepsiKondomController;
-  var penggunaAlatKontrasepsiSuntikController;
-  var penggunaKontrasepsiImplanController;
-  var penggunaKontrasepsiPilController;
-  var tahunController;
+class _EditDataKelurahanState extends State<EditDataKelurahan> {
+  var imagePath;
+  var deskController;
+  var nama;
+  var imageDir;
+  var jk;
+  var jabatan;
+  var agama;
+  var ttl;
+  var _chosenValue1;
+  var _chosenValue2;
+  var kode;
+
+  Future<File> getImage() async {
+    var imageFile;
+    final picker = ImagePicker();
+    PickedFile? pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+      return imageDir = imageFile;
+    } else {
+      return imageDir = imageFile;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +80,7 @@ class _EditDataKBState extends State<EditDataKB> {
                     //   width: 5.0, // Underline thickness
                     // ))),
                     child: Text(
-                      "EDIT DATA KB",
+                      "EDIT BIODATA",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: "Popppins",
@@ -82,18 +102,16 @@ class _EditDataKBState extends State<EditDataKB> {
                       children: [
                         SingleChildScrollView(
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editNama) {
-                              akseptorKBController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
+                              nama = (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Jumlah Akseptor KB",
+                                hintText: "Nama",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -104,19 +122,16 @@ class _EditDataKBState extends State<EditDataKB> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editNama) {
-                              penggunaAlatKontrasepsiKondomController =
-                                  int.tryParse(
-                                      DatabaseMethods().getRT(editNama));
+                              ttl = (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Jumlah Pengguna Kondom",
+                                hintText: "Tempat dan Tanggal Lahir",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -127,19 +142,16 @@ class _EditDataKBState extends State<EditDataKB> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editNama) {
-                              penggunaAlatKontrasepsiSuntikController =
-                                  int.tryParse(
-                                      DatabaseMethods().getRT(editNama));
+                              agama = (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Jumlah Pengguna Kontrasepsi Suntik",
+                                hintText: "Agama",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -150,19 +162,16 @@ class _EditDataKBState extends State<EditDataKB> {
                         ),
                         SingleChildScrollView(
                           child: TextFormField(
-                            keyboardType: TextInputType.number,
                             maxLines: null,
                             onChanged: (editNama) {
-                              penggunaKontrasepsiImplanController =
-                                  int.tryParse(
-                                      DatabaseMethods().getRT(editNama));
+                              jk = (DatabaseMethods().getRT(editNama));
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 fillColor: Colors.white,
                                 filled: true,
-                                hintText: "Jumlah Pengguna Kontrasepsi Implan",
+                                hintText: "Jenis Kelamin",
                                 hintStyle: TextStyle(
                                     fontFamily: 'Poppins', fontSize: 12)),
                           ),
@@ -171,45 +180,65 @@ class _EditDataKBState extends State<EditDataKB> {
                           height: 50,
                           width: 50,
                         ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editNama) {
-                              penggunaKontrasepsiPilController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Jumlah Pengguna Kontrasepsi Pil",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
+                        DropdownButtonFormField(
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          validator: (value) =>
+                              value == null ? 'Jabatan Belum Dipilih' : null,
+                          value: _chosenValue1,
+                          items: [
+                            'Lurah',
+                            'Sekretaris Kelurahan',
+                            'Kasi Kesos dan Pelum',
+                            'Kasi Pem dan Pembangunan',
+                            'Kasi Trantib',
+                            'Tks',
+                            'Fungsional Umum',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          hint: Text("Pilih Jabatan"),
+                          onChanged: (value) {
+                            setState(() {
+                              _chosenValue1 = value;
+                              this.jabatan = _chosenValue1;
+                            });
+                          },
                         ),
                         SizedBox(
                           height: 50,
                           width: 50,
                         ),
-                        SingleChildScrollView(
-                          child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLines: null,
-                            onChanged: (editNama) {
-                              tahunController = int.tryParse(
-                                  DatabaseMethods().getRT(editNama));
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50)),
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: "Tahun",
-                                hintStyle: TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 12)),
-                          ),
+                        DropdownButtonFormField(
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          validator: (value) => value == null
+                              ? 'Kode jabatan belum dipilih'
+                              : null,
+                          value: _chosenValue2,
+                          items: [
+                            '1 (Untuk Jabatan Lurah)',
+                            '2 (Untuk Jabatan Sekretaris Lurah)',
+                            '3 (Untuk Jabatan Kasi Kesos dan Pelum)',
+                            '4 (Untuk Jabatan Kasi Pem dan Pembangunan)',
+                            '5 (Untuk Jabatan Kasi Trantib)',
+                            '6 (Untuk Jabatan Tks)',
+                            '7 (Untuk Jabatan Fungsional Umum)',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          hint: Text("Pilih Kode Jabatan"),
+                          onChanged: (value) {
+                            setState(() {
+                              _chosenValue2 = value;
+                              this.kode = int.tryParse(
+                                  _chosenValue2.toString().substring(0, 1));
+                            });
+                          },
                         ),
                         SizedBox(
                           height: 50,
@@ -218,33 +247,65 @@ class _EditDataKBState extends State<EditDataKB> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xff008000),
+                                    borderRadius: BorderRadius.circular(50)),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.43,
+                                child: (imageDir == null)
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text("Upload file",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18)),
+                                          IconButton(
+                                              icon: Icon(Icons.upload_file),
+                                              color: Colors.white,
+                                              iconSize: 30,
+                                              onPressed: () {
+                                                getImage();
+                                              })
+                                        ],
+                                      )
+                                    : Text(
+                                        imageDir.toString(),
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      )),
                             GestureDetector(
                               onTap: () async {
-                                Navigator.pushReplacement(context,
+                                Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return HomePage();
                                 }));
 
-                                Map<String, dynamic> addData = {
-                                  "akseptorKB":
-                                      akseptorKBController ?? widget.akseptorKB,
-                                  "penggunaAlatKontrasepsiKondom":
-                                      penggunaAlatKontrasepsiKondomController ??
-                                          widget.penggunaAlatKontrasepsiKondom,
-                                  "penggunaAlatKontrasepsiSuntik":
-                                      penggunaAlatKontrasepsiSuntikController ??
-                                          widget.penggunaAlatKontrasepsiSuntik,
-                                  "penggunaKontrasepsiImplan":
-                                      penggunaKontrasepsiImplanController ??
-                                          widget.penggunaKontrasepsiImplan,
-                                  "penggunaKontrasepsiPil":
-                                      penggunaKontrasepsiPilController ??
-                                          widget.penggunaKontrasepsiPil,
-                                  "tahun": tahunController ?? widget.tahun,
+                                if (imageDir != null) {
+                                  imagePath =
+                                      await DatabaseMethods.uploadGambar(
+                                          imageDir);
+                                }
+                                Map<String, dynamic> updateInfo = {
+                                  "kode": kode ?? widget.kode,
+                                  "nama": nama ?? widget.nama,
+                                  "lastUpdateAt": DateTime.now(),
+                                  "gambar": imagePath ?? widget.gambar,
+                                  "jk": jk ?? widget.jk,
+                                  "jabatan": jabatan ?? widget.jabatan,
+                                  "agama": agama ?? widget.agama,
+                                  "TTL": ttl ?? widget.ttl,
                                 };
 
-                                DatabaseMethods().editdataKB(
-                                    widget.tahun.toString(), addData);
+                                DatabaseMethods().updateDataPerangkatKelurahan(
+                                    widget.id, updateInfo);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -256,7 +317,7 @@ class _EditDataKBState extends State<EditDataKB> {
                                 width: MediaQuery.of(context).size.width * 0.43,
                                 child: Center(
                                   child: Text(
-                                    "SIMPAN",
+                                    "Edit",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -264,7 +325,7 @@ class _EditDataKBState extends State<EditDataKB> {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         SizedBox(
